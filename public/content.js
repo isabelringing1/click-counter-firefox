@@ -21,41 +21,62 @@ Event.prototype.stopPropagation = function (...args) {
 
 async function onClick(){
     clicks++;
-    console.log(clicks)
     if (cacheLoaded){
         await browser.storage.local.set({ "click_count" : clicks });
     }
-    browser.runtime.sendMessage({updatedClicks : clicks});
-    window.postMessage({
-        id: "updatedClicks",
-        clicks: clicks
-    });
+    broadcastUpdatedClicks();
+}
+
+async function spendClicks(amount){
+    clicks -= amount;
+    if (cacheLoaded){
+        await browser.storage.local.set({ "click_count" : clicks });
+    }
+    broadcastUpdatedClicks();
+}
+
+async function setClicks(amount){
+    clicks = amount;
+    if (cacheLoaded){
+        await browser.storage.local.set({ "click_count" : clicks });
+    }
+    broadcastUpdatedClicks();
 }
 
 async function getStorageAsync(){
     var items = await browser.storage.local.get();
-    console.log("Initial clicks : " + items.click_count);
-
     if (items){
         Object.assign(storageCache, items);
     }
     clicks = parseInt(storageCache.click_count);
-    browser.runtime.sendMessage({updatedClicks : clicks});
     cacheLoaded = true;
 
     // In case the website is listening
+    broadcastUpdatedClicks();
+}
+
+// Listens to the website's requests
+window.addEventListener("message", (event) => {
+    if (event.data.id == "getClicks"){
+        broadcastUpdatedClicks(true);
+    }
+    else if (event.data.id == "spendClicks"){
+        spendClicks(event.data.amount);
+    }
+    else if (event.data.id == "resetClicks"){
+       spendClicks(clicks);
+    }
+    else if (event.data.id == "setClicks"){
+        setClicks(event.data.amount);
+    }
+});
+
+function broadcastUpdatedClicks(justMessage = false){
+    if (!justMessage){
+        browser.runtime.sendMessage({updatedClicks : clicks});
+    }
     window.postMessage({
         id: "updatedClicks",
         clicks: clicks
     });
 }
-
-// Listens to the website's request to get click count
-window.addEventListener("message", (event) => {
-    if (event.data.id == "getClicks"){
-        window.postMessage({
-            id: "updatedClicks",
-            clicks: clicks
-        });
-    }
-});
