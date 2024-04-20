@@ -1,8 +1,76 @@
+@font-face {
+  font-family: readex-pro;
+  src: url("ReadexPro-Regular.ttf");
+}
+
 .App {
-  background-color: yellowgreen;
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 25px;
+  line-height: 1.6;
+  margin: 0px;
+  background-color: #FFEFE3;
+  font-family: readex-pro;
+  z-index: 1;
+}
+
+.border{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border: 3px solid #92D2FF;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  z-index: 5;
+  top: 0;
+  left: 0;
+}
+
+.bc-symbol{
+  height: 25px;
+  width: auto;
+  top: 10%;
+  position: relative;
+}
+
+.click-ct{
+  margin-bottom: 15px;
+}
+
+#decal{
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  z-index: 4;
+}
+
+#to-game-link{
+  z-index: 10;
+}
+
+#to-game{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 5;
+}
+
+#logo{
+  position: absolute;
+  top: 5px;
+  left: 10px;
+}
+
+#permissions{
+  font-size: 15px;
+  padding: 10px;
+}
+
+#permissions-button{
+  margin-top: 10px;
 }

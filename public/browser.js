@@ -7,10 +7,20 @@ browser.runtime.onMessage.addListener((message) => {
           }
         }));   
     }
+    if (message.keysUnlocked){
+        document.dispatchEvent(new CustomEvent("updated-keys", { detail: {
+            keys: message.updatedKeys,
+            keysUnlocked: true
+          }
+        })); 
+    }
 });
 
 document.addEventListener("get-clicks", (e) => {
     browser.runtime.sendMessage({getClicks : true});
+});
+document.addEventListener("get-keys", (e) => {
+    browser.runtime.sendMessage({getKeys : true});
 });
 
 var hasPermissions = false;

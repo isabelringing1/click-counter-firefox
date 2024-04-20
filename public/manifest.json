@@ -1,17 +1,17 @@
 {
   "manifest_version": 3,
-  "name": "Click Counter",
+  "name": "Bread Winner Companion",
   "description": "",
   "version": "1.0",
   "action": {
     "default_popup": "index.html",
     "default_title": "Open the popup",
-    "default_icon": "click.png"
+    "default_icon": "bread.png"
   },
   "content_scripts": [
     {
       "all_frames": false,
-      "matches": ["<all_urls>"],
+      "matches": ["http://*/*", "https://*/*"],
       "js": ["/content.js"],
       "run_at": "document_start"
     }  
@@ -20,15 +20,17 @@
     "scripts": ["background.js"]
   },
   "permissions": [
-    "storage",
-    "activeTab",
-    "scripting",
-    "tabs"
+    "storage"
   ],
+  "icons": {
+    "16": "bread.png",
+    "48": "bread.png",
+    "128": "bread.png"
+  },
   "host_permissions": ["<all_urls>"],
   "browser_specific_settings": {
     "gecko": {
-      "id": "click-counter@isabellee.me"
+      "id": "bread-winner-companion@isabellee.me"
     }
   }
 }
