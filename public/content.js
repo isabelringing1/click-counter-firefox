@@ -21,6 +21,9 @@ browser.runtime.sendMessage({from:"content"});
 
 getStorageAsync();
 document.addEventListener("click", (event) => {
+    if (event.detail == 0) { // Holding down enter button
+        return;
+    }
     onClick(event);
 });
 document.addEventListener("keydown", (event) => {
