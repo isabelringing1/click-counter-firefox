@@ -125,7 +125,7 @@ async function setClicks(amount){
 }
 
 async function onKeyDown(e){
-    if (!keysUnlocked){
+    if (!keysUnlocked || e.repeat){
         return;
     }
     keys++;
@@ -152,7 +152,18 @@ async function spendKeys(amount){
     broadcastUpdatedKeys();
 }
 
-async function unlockKeys(){
+async function setKeys(amount){
+    keys = Math.max(0, amount)
+    if (cacheLoaded){
+        await browser.storage.local.set({ "key_count" : keys });
+    }
+    broadcastUpdatedKeys();
+}
+
+async function unlockKeys() {
+    if (keysUnlocked) {
+        return;
+    }
     keysUnlocked = true;
     if (cacheLoaded){
         await browser.storage.local.set({ "keys_unlocked" : true });
@@ -207,6 +218,9 @@ window.addEventListener("message", (event) => {
     }
     else if (event.data.id == "lockKeys"){
         lockKeys();
+    }
+    else if (event.data.id == "setKeys") {
+        setKeys(event.data.amount);
     }
 });
 
