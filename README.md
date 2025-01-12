@@ -1,12 +1,13 @@
-# Click Counter Firefox
+# Bread Winner Companion Extenstion - Firefox
 
-### Set up Instructions
+## Welcome!
 
-1. Download, delete package-lock.json and run npm install
-2. Run npm run build 
-3. To test, go to about:debugging#/runtime/this-firefox and click 'Load Temporary Add-on'
-4. Uninstall any old extensions and upload any file in the Build folder
-5. To submit: Go to addons.mozilla.org/en-US/developers/addons, then go into your Build folder, highlight everything, and compress (NOT the folder, only the folder's contents). Submit zip file.
-## License
+This is the companion extension for Bread Winner, an Idle Clicker game. Feel free to poke around.
 
-[MIT](https://choosealicense.com/licenses/mit/)
+![bread winner companion promo image](public/promo-img.png)
+
+[Link to Firefox Store Listing](https://addons.mozilla.org/en-US/firefox/addon/bread-winner-companion/)
+
+[Play Bread Winner!](https://breadwinner.app)
+
+[Submit an issue with the extension](https://forms.gle/S2c1TotgKfHJmRGC9)
